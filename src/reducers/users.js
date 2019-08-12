@@ -14,10 +14,9 @@ export default function users (state = {}, action) {
             };
         case ANSWER_USER :
             const { authUser, qid, answer } = action;
-
-            return  {
+            return {
                 ...state,
-                [authUser] : {
+                [authUser]: {
                     ...state[authUser],
                     answers: {
                         ...state[authUser].answers,
@@ -25,7 +24,6 @@ export default function users (state = {}, action) {
                     }
                 }
             };
-
         default :
             return state;
     }

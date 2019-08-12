@@ -14,11 +14,7 @@ export function handleAnswerQuestion (authUser, qid, answer) {
         dispatch(answerUser(authUser,qid,answer));
         dispatch(answerQuestion(authUser,qid,answer));
 
-        return saveQuestionAnswer({
-            authUser,
-            qid,
-            answer
-        })
+        return saveQuestionAnswer(authUser,qid,answer)
             .catch((e) => {
                 console.log('Save Answer Error, ', e );
             })
