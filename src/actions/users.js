@@ -1,4 +1,15 @@
 export const RECEIVE_USERS = 'RECEIVE_USERS';
+export const ANSWER_USER = 'ANSWER_USER';
+
+
+export function answerUser (authUser, qid, answer) {
+    return {
+        type: ANSWER_USER,
+        authUser,
+        qid,
+        answer
+    }
+}
 
 
 export function receiveUsers (users) {
