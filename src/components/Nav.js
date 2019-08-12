@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
 import { withRouter, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import {setAuthUser} from "../actions/authUser";
 
 class Nav extends Component {
+
+    handleLogout = (e) => {
+        e.preventDefault();
+        this.props.setAuthUser(null);
+    };
 
 
     render() {
@@ -34,6 +39,9 @@ class Nav extends Component {
                 <div>
                     <span>Hello, {users[authUser].name}</span>
                     <img src={users[authUser].avatarURL}/>
+                    <button onClick={this.handleLogout}>
+                        logout
+                    </button>
                 </div>
             </div>
         );
@@ -50,5 +58,6 @@ function mapStateToProps ( { users, authUser } ) {
 }
 
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    {setAuthUser}
 )(Nav)
