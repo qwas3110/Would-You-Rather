@@ -3,17 +3,17 @@ import React, {Component} from 'react';
 
 
 
-class Home extends Component {
+class UserCard extends Component {
 
 
     render() {
         return (
             <div>
-                Home
+                UserCard
             </div>
         );
     }
 
 }
 
-export default Home;
+export default UserCard;

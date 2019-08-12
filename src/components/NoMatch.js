@@ -3,17 +3,17 @@ import React, {Component} from 'react';
 
 
 
-class Home extends Component {
+class NoMatch extends Component {
 
 
     render() {
         return (
             <div>
-                Home
+                NO Match 404
             </div>
         );
     }
 
 }
 
-export default Home;
+export default NoMatch;

@@ -3,17 +3,17 @@ import React, {Component} from 'react';
 
 
 
-class Home extends Component {
+class LeaderBoard extends Component {
 
 
     render() {
         return (
             <div>
-                Home
+                Leader Board
             </div>
         );
     }
 
 }
 
-export default Home;
+export default LeaderBoard;
