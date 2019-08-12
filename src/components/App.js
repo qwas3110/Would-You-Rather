@@ -1,11 +1,22 @@
 // import logo from './logo.svg';
 // <img src={logo} className="App-logo" alt="logo" />
 
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import LoadingBar from 'react-redux-loading';
 import {handleInitData} from "../actions/shared";
+
 import Home from "./Home";
+import NewQuestion from "./NewQuestion";
+import LeaderBoard from "./LeaderBoard";
+import Login from "./Login";
+import Nav from "./Nav";
+import NoMatch from "./NoMatch";
+import Question from "./Question";
+import Result from "./Result";
+
+
 
 
 class App extends Component {
@@ -21,12 +32,27 @@ class App extends Component {
         return (
             <div>
                 <LoadingBar/>
-                {
-                    loading === true
-                        ? null
-                        : <Home/>
-
-                }
+                <Router>
+                    {
+                        loading === true ? (
+                            <Login/>
+                        ) : (
+                            <Fragment>
+                                <Nav/>
+                                <div>
+                                    <Switch>
+                                        <Route path='/' exact component={Home} />
+                                        <Route path='/add' exact component={NewQuestion} />
+                                        <Route path='/leaderBoard' exact component={LeaderBoard} />
+                                        <Route path='/questions/:id' exact component={Question} />
+                                        <Route path='/results/:id' exact component={Result} />
+                                        <Route component={NoMatch} />
+                                    </Switch>
+                                </div>
+                            </Fragment>
+                        )
+                    }
+                </Router>
             </div>
         );
     }
