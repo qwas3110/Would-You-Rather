@@ -5,7 +5,7 @@ export const QUESTION_USER = 'QUESTION_USER';
 
 
 
-export function QuestionTOUser ({ id, author }) {
+export function questionTOUser ({ id, author }) {
     return {
         type: QUESTION_USER,
         id,

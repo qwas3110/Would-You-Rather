@@ -9,6 +9,27 @@ import {answerUser} from "./users";
 import {answerQuestion} from "./questions";
 import {saveQuestionAnswer} from "../utils/api";
 
+
+// add Question
+import {addQuestion} from "./questions";
+import {questionTOUser} from "./users";
+import {saveQuestion} from "../utils/api";
+
+export function handleSaveQuestion (one, two, author) {
+    return (dispatch) => {
+        return saveQuestion({one, two, author})
+            .then(
+                (question) => {
+                    dispatch(addQuestion(question));
+                    dispatch(questionTOUser(question));
+                }
+            )
+    }
+}
+
+
+
+
 export function handleAnswerQuestion (authUser, qid, answer) {
     return (dispatch) => {
         dispatch(answerUser(authUser,qid,answer));
