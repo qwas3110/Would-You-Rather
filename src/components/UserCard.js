@@ -15,7 +15,9 @@ class UserCard extends Component {
             <div>
                 <div>
                     <div>
-                        <img src={users[question.author].avatarURL}/>
+                        <img src={users[question.author].avatarURL}
+                             alt={'xxx'}
+                        />
                     </div>
                     <div>
                         <p>{users[question.author].name} asks - Would you rather</p>
