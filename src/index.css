@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+.ui.form {
+  text-align: left;
+  line-height: 4rem;
+}
+
+.ui.form .field:last-child, .ui.form .fields:last-child .field {
+  width: 10rem;
+  margin: 0 auto;
+}
+
+.ui.checkbox input.hidden+label {
+  font-size: 2rem;
+}

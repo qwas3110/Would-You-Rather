@@ -43,7 +43,6 @@ class UserCard extends Component {
                                         as={NavLink}
                                         to={`/questions/${question.id}`}
                                         content='View Poll'
-                                        color="green"
                                         size="tiny"
                                         fluid positive
                                     />
@@ -57,7 +56,6 @@ class UserCard extends Component {
                                         as={NavLink}
                                         to={`/results/${question.id}`}
                                         content='View Answer'
-                                        color="blue"
                                         size="tiny"
                                         fluid positive
                                     />

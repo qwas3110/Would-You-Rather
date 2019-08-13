@@ -1,16 +1,29 @@
-import React, {Component} from 'react';
+import React, {Component,Fragment} from 'react';
 import { connect } from 'react-redux';
 import {handleAnswerQuestion} from "../actions/shared";
 import { withRouter } from 'react-router-dom';
+
+import {
+    Header,
+    Form,
+    Radio,
+    Button,
+    Grid,
+    Image,
+    Container,
+    Segment
+} from "semantic-ui-react";
+
+
 class Question extends Component {
 
     state = {
         value : ''
     };
 
-    handleChange = (e) => {
+    handleChange = (e, {value}) => {
         this.setState({
-            value: e.target.value
+            value
         })
     };
 
@@ -31,45 +44,64 @@ class Question extends Component {
     render() {
 
         const { question, users } = this.props;
+        const { value } = this.state;
 
 
 
         return (
-            <div>
-                <p>Would you rather?</p>
-                <div>
-                    <img src={users[question.author].avatarURL}/>
-                    <h3>
-                        <small>{users[question.author].name} asks:</small>
-                    </h3>
-                </div>
-                {
-                    question && (
-                        <form>
-                            <input
-                                type="radio"
-                                name='answer'
-                                value='optionOne'
-                                onChange={this.handleChange}
+            <Container>
+                <Grid divided padded
+                      style={{
+                          border: '1px solid #ccc',
+                          textAlign: 'center'
+                      }}
+                      >
+                    <Grid.Row>
+                        <Grid.Column width={5}>
+                            <Image src={users[question.author].avatarURL} />
+                        </Grid.Column>
+                        <Grid.Column
+                            width={11}
+                            >
+                            <Header
+                                as="h2"
+                                content='Would you rather ?'
                             />
-                            {question.optionOne.text}
-                            <br/>
-                            <span>Or</span>
-                            <input
-                                type='radio'
-                                name='answer'
-                                value='optionTwo'
-                                onChange={this.handleChange}
-                            />
-                            {question.optionTwo.text}
-                            <button onClick={this.handleSubmit}>
-                                Submit
-                            </button>
-                            <br/>
-                        </form>
-                    )
-                }
-            </div>
+                            <Form
+                                onSubmit={this.handleSubmit}
+                                >
+                                <Form.Field>
+                                    <Radio
+                                        label={question.optionOne.text}
+                                        name="radioGroup"
+                                        value="optionOne"
+                                        checked={this.state.value === 'optionOne'}
+                                        onChange={this.handleChange}
+                                    />
+                                    <br />
+                                    <Radio
+                                        label={question.optionTwo.text}
+                                        name="radioGroup"
+                                        value="optionTwo"
+                                        checked={this.state.value === 'optionTwo'}
+                                        onChange={this.handleChange}
+                                    />
+                                </Form.Field>
+                                <Form.Field>
+                                    <Button
+                                        color="green"
+                                        size="tiny"
+                                        fluid
+                                        positive
+                                        disabled={!value}
+                                        content="Submit"
+                                    />
+                                </Form.Field>
+                            </Form>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            </Container>
         );
     }
 
