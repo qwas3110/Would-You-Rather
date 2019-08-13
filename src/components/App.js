@@ -4,7 +4,6 @@
 import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import LoadingBar from 'react-redux-loading';
 import {handleInitData} from "../actions/shared";
 
 import Home from "./Home";
@@ -16,14 +15,11 @@ import NoMatch from "./NoMatch";
 import Question from "./Question";
 import Result from "./Result";
 import {
-    Responsive
+    Grid,
+    Container
 } from "semantic-ui-react";
 
-const getWidth = () => {
-    const isSSR = typeof window === 'undefined'
 
-    return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth
-}
 
 
 
@@ -38,30 +34,40 @@ class App extends Component {
         const { loading } = this.props;
 
         return (
-            <div>
-                <LoadingBar/>
-                <Router>
+            <Router>
+                <Container>
                     {
                         loading === true ? (
-                            <Login/>
+                            <Grid padded="vertically" columns={1} centered>
+                                <Grid.Row>
+                                    <Grid.Column style={{ maxWidth: 550 }}>
+                                        <Login/>
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
                         ) : (
+
                             <Fragment>
                                 <Nav/>
-                                <div>
-                                    <Switch>
-                                        <Route path='/' exact component={Home} />
-                                        <Route path='/add' exact component={NewQuestion} />
-                                        <Route path='/leaderboard' exact component={LeaderBoard} />
-                                        <Route path='/questions/:id' exact component={Question} />
-                                        <Route path='/results/:id' exact component={Result} />
-                                        <Route component={NoMatch} />
-                                    </Switch>
-                                </div>
+                                <Grid padded="vertically" columns={1} centered>
+                                    <Grid.Row>
+                                        <Grid.Column style={{ maxWidth: 550 }}>
+                                            <Switch>
+                                                <Route path='/' exact component={Home} />
+                                                <Route path='/add' exact component={NewQuestion} />
+                                                <Route path='/leaderboard' exact component={LeaderBoard} />
+                                                <Route path='/questions/:id' exact component={Question} />
+                                                <Route path='/results/:id' exact component={Result} />
+                                                <Route component={NoMatch} />
+                                            </Switch>
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
                             </Fragment>
                         )
                     }
-                </Router>
-            </div>
+                </Container>
+            </Router>
         );
     }
 
