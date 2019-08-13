@@ -15,7 +15,15 @@ import Nav from "./Nav";
 import NoMatch from "./NoMatch";
 import Question from "./Question";
 import Result from "./Result";
+import {
+    Responsive
+} from "semantic-ui-react";
 
+const getWidth = () => {
+    const isSSR = typeof window === 'undefined'
+
+    return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth
+}
 
 
 

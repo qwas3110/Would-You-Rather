@@ -1,7 +1,14 @@
 import React, {Component} from 'react';
-import { withRouter, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {setAuthUser} from "../actions/authUser";
+import {
+    Menu,
+    Container,
+    Button,
+    Image,
+    Icon
+} from "semantic-ui-react";
 
 class Nav extends Component {
 
@@ -16,34 +23,38 @@ class Nav extends Component {
         const { users, authUser } = this.props
 
         return (
-            <div>
-                <div>
-                    <ul>
-                        <li>
-                            <NavLink to='/' exact activeClassName='active'>
-                                Home
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to='/add' exact activeClassName='active'>
-                                New Question
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to='/leaderboard' exact activeClassName='active'>
-                                LeaderBoard
-                            </NavLink>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <span>Hello, {users[authUser].name}</span>
-                    <img src={users[authUser].avatarURL}/>
-                    <button onClick={this.handleLogout}>
-                        logout
-                    </button>
-                </div>
-            </div>
+            <Container>
+                <Menu>
+                    <Menu.Item name="home" as={NavLink} to="/" exact />
+                    <Menu.Item name="new question" as={NavLink} to='/add' exact />
+                    <Menu.Item name="leader board" as={NavLink} to='/leaderboard' exact />
+                    <Menu.Menu position='right'>
+                        <Menu.Item >
+                            <span
+                                style={{
+                                    paddingRight: '5px'
+                                }}
+                                >
+                                {users[authUser].name}
+                            </span>
+                            <Image src={users[authUser].avatarURL}
+                                   alt={`Avatar in ${users[authUser].name}`}
+                                   avatar
+                            />
+                        </Menu.Item>
+                        <Menu.Item >
+                            <Button animated
+                                    onClick={this.handleLogout}
+                            >
+                                <Button.Content visible>LogOut</Button.Content>
+                                <Button.Content hidden>
+                                    <Icon name='sign-out' />
+                                </Button.Content>
+                            </Button>
+                        </Menu.Item>
+                    </Menu.Menu>
+                </Menu>
+            </Container>
         );
     }
 
