@@ -1,6 +1,7 @@
 import React, {Component,Fragment} from 'react';
 import {NavLink} from "react-router-dom";
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import {
     Grid,
     Header,
@@ -15,6 +16,10 @@ class UserCard extends Component {
     render() {
 
         const { users, question, question_type } = this.props;
+
+        if (question === undefined) {
+            return <Redirect to="/questions/nomatch" />;
+        }
 
         return (
             <Fragment>

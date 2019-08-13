@@ -56,7 +56,6 @@ class NewQuestion extends Component {
 
     render() {
 
-        const {authUser, questions} = this.props;
         const { loading, optionOne, optionTwo } = this.state;
 
         return (

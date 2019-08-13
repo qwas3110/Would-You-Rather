@@ -54,6 +54,7 @@ class App extends Component {
                                         <Grid.Column style={{ maxWidth: 550 }}>
                                             <Switch>
                                                 <Route path='/' exact component={Home} />
+                                                <Route path="/questions/nomatch" component={NoMatch} />
                                                 <Route path='/add' exact component={NewQuestion} />
                                                 <Route path='/leaderboard' exact component={LeaderBoard} />
                                                 <Route path='/questions/:id' exact component={Question} />

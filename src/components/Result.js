@@ -36,13 +36,11 @@ class Result extends Component {
 
     render() {
 
-        const { question, users, author, authUser,id } = this.props
+        const { question, users, authUser,id } = this.props
 
 
         let oneVotes = 0;
         let twoVotes = 0;
-        let onePercentage = 0;
-        let twoPercentage = 0;
         let total = 0;
         let authUserAnswer = '';
 
@@ -50,8 +48,6 @@ class Result extends Component {
             oneVotes = question.optionOne.votes.length
             twoVotes = question.optionTwo.votes.length
             total = oneVotes + twoVotes;
-            onePercentage = ( oneVotes / total ) * 100
-            twoPercentage = ( twoVotes / total ) * 100
             authUserAnswer = users[authUser].answers[id]
         } else {
             return <NoMatch/>
@@ -123,7 +119,6 @@ function mapStateToProps ({ authUser, questions, users, }, props) {
         authUser,
         question,
         users,
-        author:users[questions[id].author],
         id
     }
 }

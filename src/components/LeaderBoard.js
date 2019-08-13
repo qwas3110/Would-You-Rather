@@ -1,17 +1,13 @@
-import React, {Component,Fragment} from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {
-    Segment,
     Label,
-    Grid,
     Image,
     Header,
-    Divider,
     Container,
     Table
 } from "semantic-ui-react";
 
-const trophyColor = ['yellow', 'grey', 'orange'];
 
 class LeaderBoard extends Component {
 
@@ -33,7 +29,7 @@ class LeaderBoard extends Component {
                     <Table.Body>
                         {
                             leaderBoard.map((user,idx) => (
-                                <Table.Row>
+                                <Table.Row key={idx}>
                                     <Table.Cell>
                                         <Header as='h4' image>
                                             <Image rounded
