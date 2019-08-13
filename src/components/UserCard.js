@@ -1,7 +1,12 @@
-import React, {Component} from 'react';
+import React, {Component,Fragment} from 'react';
 import {NavLink} from "react-router-dom";
 import { connect } from 'react-redux';
-
+import {
+    Grid,
+    Header,
+    Button,
+    Image
+} from "semantic-ui-react";
 
 
 class UserCard extends Component {
@@ -12,37 +17,56 @@ class UserCard extends Component {
         const { users, question, question_type } = this.props;
 
         return (
-            <div>
-                <div>
-                    <div>
-                        <img src={users[question.author].avatarURL}
-                             alt={'xxx'}
-                        />
-                    </div>
-                    <div>
-                        <p>{users[question.author].name} asks - Would you rather</p>
-                        <p><strong>{question.optionOne.text}...</strong></p>
-                        <p>
+            <Fragment>
+                <Grid celled>
+                    <Grid.Row color="grey">
+                        <Grid.Column width={16} textAlign="left">
+                            {users[question.author].name} asks:
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column width={5}>
+                            <Image src={users[question.author].avatarURL} />
+                        </Grid.Column>
+                        <Grid.Column width={11}>
+                            <Header as="h5" textAlign="left">
+                                Would you rather
+                            </Header>
+                            <p>
+                                {question.optionOne.text}...
+                                <br />
+                                or...
+                            </p>
                             {
                                 question_type === 'unanswered' && (
-                                    <NavLink to={`/questions/${question.id}`}>
-                                        View Poll
-                                    </NavLink>
+                                    <Button
+                                        as={NavLink}
+                                        to={`/questions/${question.id}`}
+                                        content='View Poll'
+                                        color="green"
+                                        size="tiny"
+                                        fluid positive
+                                    />
                                 )
 
                             }
 
                             {
                                 question_type === 'answered' && (
-                                    <NavLink to={`/results/${question.id}`}>
-                                        View Answer
-                                    </NavLink>
+                                    <Button
+                                        as={NavLink}
+                                        to={`/results/${question.id}`}
+                                        content='View Answer'
+                                        color="blue"
+                                        size="tiny"
+                                        fluid positive
+                                    />
                                 )
                             }
-                        </p>
-                    </div>
-                </div>
-            </div>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            </Fragment>
         );
     }
 

@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import UserCard from "./UserCard";
-
-
+import {
+    Button,
+    Container,
+    Grid,
+    Icon,
+    Segment
+} from "semantic-ui-react";
 
 
 class Home extends Component {
@@ -42,51 +47,72 @@ class Home extends Component {
 
 
         return (
-            <div>
-                <div>
-                    <ul>
-                        <li>
-                            {
-                                questionType === 'unanswered'
-                                    ? <button>Unanswered</button>
-                                    : <button onClick={this.handleUnanswered}>
-                                        Unanswered
-                                      </button>
-                            }
-                        </li>
-                        <li>
-                            {
-                                questionType === 'answered'
-                                    ? <button>Answered</button>
-                                    : <button onClick={this.handleAnswered}>
-                                        Answered
-                                      </button>
-                            }
-                        </li>
-                    </ul>
-                    {
-                        questionType === 'unanswered' &&
-                        unanswered.map(q => (
-                            <UserCard
-                                key={q.id}
-                                question_type='unanswered'
-                                question_id={q.id}
-                            />
-                        ))
-                    }
+            <Container>
+                <Grid
+                    textAlign="center"
+                    style={{ height: '100%' }}
+                    verticalAlign="middle"
+                    padded
+                >
+                    <Grid.Column style={{ maxWidth: 550 }}>
+                        <Grid.Row>
+                            <Button.Group
+                                attached="top"
+                            >
+                                <Button
+                                    animated='vertical'
+                                    onClick={this.handleUnanswered}
+                                >
+                                    <Button.Content hidden>unanswered</Button.Content>
+                                    <Button.Content visible>
+                                        <Icon name='question' />
+                                    </Button.Content>
+                                </Button>
+                                <Button.Or />
+                                <Button
+                                    animated='vertical'
+                                    onClick={this.handleAnswered}
+                                >
+                                    <Button.Content hidden>answered</Button.Content>
+                                    <Button.Content visible>
+                                        <Icon name='search' />
+                                    </Button.Content>
+                                </Button>
+                            </Button.Group>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Segment.Group>
 
-                    {
-                        questionType === 'answered' &&
-                        answered.map(q => (
-                            <UserCard
-                                key={q.id}
-                                question_type='answered'
-                                question_id={q.id}
-                            />
-                        ))
-                    }
-                </div>
-            </div>
+                                <Segment>
+                                    {
+                                        questionType === 'unanswered' &&
+                                        unanswered.map(q => (
+                                            <UserCard
+                                                key={q.id}
+                                                question_type='unanswered'
+                                                question_id={q.id}
+                                            />
+                                        ))
+                                    }
+
+                                    {
+                                        questionType === 'answered' &&
+                                        answered.map(q => (
+                                            <UserCard
+                                                key={q.id}
+                                                question_type='answered'
+                                                question_id={q.id}
+                                            />
+                                        ))
+                                    }
+                                </Segment>
+
+
+                            </Segment.Group>
+                        </Grid.Row>
+                    </Grid.Column>
+                </Grid>
+            </Container>
         );
     }
 
