@@ -2,62 +2,109 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {setAuthUser} from "../actions/authUser";
 import { withRouter } from 'react-router-dom';
-
+import {
+    Grid,
+    Header,
+    Image,
+    Form,
+    Segment,
+    Dimmer,
+    Loader
+} from "semantic-ui-react";
 
 class Login extends Component {
 
 
     state = {
-        value: ''
+        value: '',
+        loading: false
     };
 
-    handleChange = (value) => {
+    handleLoading = () => {
+        this.setState({loading: true})
+    };
+
+    handleChange = (e,{value}) => {
         this.setState({value})
     };
 
-    handleSubmit = () => {
+    handleSubmit = (e) => {
+        e.preventDefault();
+
         if (this.state.value !== '') {
-            this.props.setAuthUser(this.state.value);
-            this.props.history.push('/')
+
+
+            if (this.state.value !== '') {
+
+                new Promise(resolve => {
+                    this.handleLoading();
+                    setTimeout(() => resolve(), 1000)
+                }).then(() => {
+                    this.props.setAuthUser(this.state.value);
+                    this.props.history.push('/')
+                })
+            }
         }
+    };
+
+    getUserData = () => {
+        const { users } = this.props;
+
+        return users.map(user => ({
+            key: user.id,
+            text: user.name,
+            value: user.id,
+            image: { avatar: true, src: user.avatarURL }
+        }));
     };
 
 
     render() {
-
-        const { authUser, users } = this.props;
-        const { value } = this.state;
-
-
-
+        const { loading, value } = this.state;
         return (
-            <div>
-                <header>
-                    <h1>Welcome to the would you rather App!</h1>
-                    <p>Please sign in to continue</p>
-                </header>
-                <div>
-                    <img src="/images/logo.svg" alt="logo"/>
-                </div>
+            <Grid
+                textAlign='center'
+                verticalAlign='middle'
+                style={{
+                    marginTop: 10
+                }}
+                >
+                <Grid.Column style={{ maxWidth: 450 }}>
+                    <Header as='h2' color='teal' textAlign='center'>
+                        <Image src='/images/logo.svg' /> Would You Rather ?
+                    </Header>
 
-                <div>
-                    <select value={value}
-                            onChange={(e) => this.handleChange(e.target.value)}
-                            >
-                        <option value="">Choose a User</option>
-                        {users.length > 0 &&
-                        users.map((user) => (
-                            <option value={user.id} key={user.id}>{user.name}</option>
-                        ))}
-                    </select >
-                    <button type="submit"
-                            onClick={this.handleSubmit}
-                            disabled={!value}
+                    <Form size='large'
+                          onSubmit={this.handleSubmit}
                     >
-                        Login
-                    </button>
-                </div>
-            </div>
+
+                        {
+                            loading === true && (
+                                <Dimmer active inverted>
+                                    <Loader inverted content='Loading' />
+                                </Dimmer>
+                            )
+                        }
+                        <Segment stacked>
+                            <Form.Dropdown
+                                placeholder="Select User"
+                                fluid
+                                selection
+                                scrolling
+                                options={this.getUserData()}
+                                value={value}
+                                onChange={this.handleChange}
+                                required
+                            />
+
+                            <Form.Button
+                                content="Login"
+                                positive disabled={!value}
+                                fluid />
+                        </Segment>
+                    </Form>
+                </Grid.Column>
+            </Grid>
         );
     }
 
