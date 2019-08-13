@@ -65,7 +65,7 @@ class Result extends Component {
                         <Grid divided padded>
                             <Grid.Row>
                                 <Grid.Column width={5}>
-                                    <Image src={users[question.author].avatarURL} />
+                                    <Image src={users[question.author].avatarURL}/>
                                 </Grid.Column>
                                 <Grid.Column width={11}>
                                     <Header as="h3">

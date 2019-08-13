@@ -10,6 +10,23 @@ import {
     Icon
 } from "semantic-ui-react";
 
+const style = {
+    h1: {
+        marginTop: '3em',
+    },
+    h2: {
+        margin: '4em 0em 2em',
+    },
+    h3: {
+        marginTop: '2em',
+        padding: '2em 0em',
+    },
+    last: {
+        marginBottom: '300px',
+    },
+}
+
+
 class Nav extends Component {
 
     handleLogout = (e) => {
@@ -23,38 +40,38 @@ class Nav extends Component {
         const { users, authUser } = this.props
 
         return (
-            <Container>
-                <Menu>
-                    <Menu.Item name="home" as={NavLink} to="/" exact />
-                    <Menu.Item name="new question" as={NavLink} to='/add' exact />
-                    <Menu.Item name="leader board" as={NavLink} to='/leaderboard' exact />
-                    <Menu.Menu position='right'>
-                        <Menu.Item >
+                <Container>
+                    <Menu stackable>
+                        <Menu.Item name="home" as={NavLink} to="/" exact />
+                        <Menu.Item name="new question" as={NavLink} to='/add' exact />
+                        <Menu.Item name="leader board" as={NavLink} to='/leaderboard' exact />
+                        <Menu.Menu position='right'>
+                            <Menu.Item >
                             <span
                                 style={{
                                     paddingRight: '5px'
                                 }}
-                                >
+                            >
                                 {users[authUser].name}
                             </span>
-                            <Image src={users[authUser].avatarURL}
-                                   alt={`Avatar in ${users[authUser].name}`}
-                                   avatar
-                            />
-                        </Menu.Item>
-                        <Menu.Item >
-                            <Button animated
-                                    onClick={this.handleLogout}
-                            >
-                                <Button.Content visible>LogOut</Button.Content>
-                                <Button.Content hidden>
-                                    <Icon name='sign-out' />
-                                </Button.Content>
-                            </Button>
-                        </Menu.Item>
-                    </Menu.Menu>
-                </Menu>
-            </Container>
+                                <Image src={users[authUser].avatarURL}
+                                       alt={`Avatar in ${users[authUser].name}`}
+                                       avatar
+                                />
+                            </Menu.Item>
+                            <Menu.Item >
+                                <Button animated
+                                        onClick={this.handleLogout}
+                                >
+                                    <Button.Content visible>LogOut</Button.Content>
+                                    <Button.Content hidden>
+                                        <Icon name='sign-out' />
+                                    </Button.Content>
+                                </Button>
+                            </Menu.Item>
+                        </Menu.Menu>
+                    </Menu>
+                </Container>
         );
     }
 

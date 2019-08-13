@@ -13,38 +13,7 @@ code {
 }
 
 
-.ui.form {
-  text-align: left;
-  line-height: 4rem;
-}
 
-.ui.form .field:last-child, .ui.form .fields:last-child .field {
-  width: 10rem;
-  margin: 0 auto;
-}
-
-.ui.checkbox input.hidden+label {
-  font-size: 2rem;
-}
-
-.ui.grid>.row>.column>img, .ui.grid>.row>img {
-  margin: 0 auto;
-  margin-bottom: 1rem;
-}
-
-
-.ui.column.grid>[class*="twelve wide"].column, .ui.grid>.column.row>[class*="twelve wide"].column, .ui.grid>.row>[class*="twelve wide"].column, .ui.grid>[class*="twelve wide"].column {
-  font-size: 2rem;
-  padding: 1rem;
-
-}
-
-.ui.segments:last-child {
-  height: 100%;
-}
-
-.ui.big.label, .ui.big.labels .label {
-  font-size: 5rem;
-  vertical-align: middle;
-  margin: 2rem;
+.ui.table:last-child {
+  text-align: center;
 }

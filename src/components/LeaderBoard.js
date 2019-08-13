@@ -7,7 +7,8 @@ import {
     Image,
     Header,
     Divider,
-    Container
+    Container,
+    Table
 } from "semantic-ui-react";
 
 const trophyColor = ['yellow', 'grey', 'orange'];
@@ -20,59 +21,55 @@ class LeaderBoard extends Component {
         const { leaderBoard } = this.props;
 
         return (
-                <Container>
-                    {leaderBoard.map((user, idx) => (
-                        <Segment.Group key={user.id}>
-                            <Label corner="left" icon="trophy" color={trophyColor[idx]} />
-                            <Grid divided padded>
-                                <Grid.Row columns={3}>
-                                    <Grid.Column verticalAlign="middle">
-                                        <Image src={user.avatarURL} />
-                                    </Grid.Column>
+            <Container>
+                <Table celled>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>Users</Table.HeaderCell>
+                            <Table.HeaderCell>Score</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
 
-                                    <Grid.Column
-                                        textAlign="center"
-                                        style={{
-                                            lineHeight: 10
-                                        }}
-                                        >
-                                        <Header as="h3" textAlign="center">
-                                            {user.name}
+                    <Table.Body>
+                        {
+                            leaderBoard.map((user,idx) => (
+                                <Table.Row>
+                                    <Table.Cell>
+                                        <Header as='h4' image>
+                                            <Image rounded
+                                                   size='medium'
+                                                   src={user.avatarURL}
+                                                   avatar
+                                            />
+                                            <Header.Content>
+                                                {user.name}
+                                                <Header.Subheader>
+                                                    <span><b>Answered questions:</b></span>
+                                                    <Label circular color="red" size="small">
+                                                        {user.answerNum}
+                                                    </Label>
+                                                </Header.Subheader>
+
+                                                <Header.Subheader>
+                                                    <span><b>Created questions:</b></span>
+                                                    <Label circular color="red" size="small">
+                                                        {user.questionNum}
+                                                    </Label>
+                                                </Header.Subheader>
+                                            </Header.Content>
                                         </Header>
-                                        <div>
-                                            <span><b>Answered questions:</b></span>
-                                            <Label circular color="red" size="small">
-                                                {user.answerNum}
-                                            </Label>
-                                        </div>
-                                        <div>
-                                            <span><b>Created questions:</b></span>
-                                            <Label circular color="red" size="small">
-                                                {user.questionNum}
-                                            </Label>
-                                        </div>
-                                    </Grid.Column>
-
-                                    <Grid.Column
-                                        textAlign="center"
-                                        style={{
-                                            maxWidth: '100%'
-                                        }}
-                                        >
-                                        <Segment.Group>
-                                            <Header as="h5" block attached="top" content="Score" />
-                                            <Segment>
-                                                <Label circular color="red" size="big">
-                                                    {user.total}
-                                                </Label>
-                                            </Segment>
-                                        </Segment.Group>
-                                    </Grid.Column>
-                                </Grid.Row>
-                            </Grid>
-                        </Segment.Group>
-                    ))}
-                </Container>
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        <Label circular color="red" size="big">
+                                            {user.total}
+                                        </Label>
+                                    </Table.Cell>
+                                </Table.Row>
+                            ))
+                        }
+                    </Table.Body>
+                </Table>
+            </Container>
         );
     }
 
