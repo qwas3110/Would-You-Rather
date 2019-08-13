@@ -43,7 +43,6 @@ export function handleAnswerQuestion (authUser, qid, answer) {
 }
 
 
-
 const USER = 'tylermcginnis';
 
 export function handleInitData () {

@@ -2,12 +2,24 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {handleSaveQuestion} from "../actions/shared";
 import { withRouter } from 'react-router-dom';
+import {
+    Container,
+    Header,
+    Grid,
+    Dimmer,
+    Loader,
+    Form,
+    Divider,
+    Message
+} from "semantic-ui-react";
+
 
 class NewQuestion extends Component {
 
     state = {
         optionOne: '',
         optionTwo: '',
+        loading: false
     };
 
     handleChange = (e) => {
@@ -16,17 +28,28 @@ class NewQuestion extends Component {
         })
     };
 
+    handleLoading = () => {
+        this.setState({loading: true})
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         const {authUser, handleSaveQuestion} = this.props;
         const one = this.state.optionOne;
         const two = this.state.optionTwo;
-        handleSaveQuestion(one,two, authUser)
-        this.setState({
-            optionOne: '',
-            optionTwo: ''
-        });
-        this.props.history.push('/');
+
+        new Promise(resolve => {
+            this.handleLoading();
+            setTimeout(() => resolve(), 1000)
+        }).then(() => {
+            handleSaveQuestion(one,two, authUser)
+            this.setState({
+                optionOne: '',
+                optionTwo: '',
+                loading: false
+            });
+            this.props.history.push('/');
+        })
 
     };
 
@@ -34,39 +57,51 @@ class NewQuestion extends Component {
     render() {
 
         const {authUser, questions} = this.props;
+        const { loading, optionOne, optionTwo } = this.state;
 
         return (
-            <div>
+            <Container>
+                <Grid padded>
+                    <Grid.Column>
+                        <Header as="h1" textAlign="center" block attached="top">
+                            Create a New Question
+                        </Header>
+                        {loading && (
+                            <Dimmer active inverted>
+                                <Loader content="Updating" />
+                            </Dimmer>
+                        )}
+                        <Message>
+                            <Message.Header>Description:</Message.Header>
+                            <Message.List>
+                                <Message.Item>Complete the question:</Message.Item>
+                                <Message.Item>Would you rather...</Message.Item>
+                            </Message.List>
+                        </Message>
+                        <Form onSubmit={this.handleSubmit}>
+                            <Form.Input
+                                id="optionOne"
+                                placeholder="Enter option one..."
+                                value={optionOne}
+                                onChange={this.handleChange}
+                                required
+                            />
+                            <Divider horizontal>Or</Divider>
+                            <Form.Input
+                                id="optionTwo"
+                                placeholder="Enter option two..."
+                                value={optionTwo}
+                                onChange={this.handleChange}
+                                required
+                            />
+                            <Form.Button positive size="tiny" fluid disabled={!optionOne && !optionTwo}>
+                                Submit
+                            </Form.Button>
+                        </Form>
+                    </Grid.Column>
+                </Grid>
 
-                <div >
-                    <h3>
-                        <small>Add New Question</small>
-                    </h3>
-                    <p><small>Complete the Question:</small></p>
-                    <p><small>Would you rather...</small></p>
-                    <br />
-
-                    <input type="text"
-                           id='optionOne'
-                           placeholder="Enter option one text here"
-                           value={this.state.optionOne}
-                           onChange={this.handleChange}
-                    />
-
-                    <span>Or</span>
-
-                    <input type="text"
-                           id='optionTwo'
-                           placeholder="Enter option two text here"
-                           value={this.state.optionTwo}
-                           onChange={this.handleChange}
-                    />
-
-                    <button onClick={this.handleSubmit}>
-                        Add Question
-                    </button>
-                </div>
-            </div>
+            </Container>
         );
     }
 
@@ -80,7 +115,9 @@ function mapStateToProps ({ authUser, questions }) {
 }
 
 
-export default connect(
-    mapStateToProps,
-    {handleSaveQuestion}
-)(NewQuestion);
+export default withRouter(
+    connect(
+        mapStateToProps,
+        {handleSaveQuestion}
+    )(NewQuestion)
+)

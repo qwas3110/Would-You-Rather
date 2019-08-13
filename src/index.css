@@ -26,3 +26,25 @@ code {
 .ui.checkbox input.hidden+label {
   font-size: 2rem;
 }
+
+.ui.grid>.row>.column>img, .ui.grid>.row>img {
+  margin: 0 auto;
+  margin-bottom: 1rem;
+}
+
+
+.ui.column.grid>[class*="twelve wide"].column, .ui.grid>.column.row>[class*="twelve wide"].column, .ui.grid>.row>[class*="twelve wide"].column, .ui.grid>[class*="twelve wide"].column {
+  font-size: 2rem;
+  padding: 1rem;
+
+}
+
+.ui.segments:last-child {
+  height: 100%;
+}
+
+.ui.big.label, .ui.big.labels .label {
+  font-size: 5rem;
+  vertical-align: middle;
+  margin: 2rem;
+}
