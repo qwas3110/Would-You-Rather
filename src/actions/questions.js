@@ -7,7 +7,7 @@ export const ADD_QUESTION = 'ADD_QUESTION';
 
 export function addQuestion (question) {
     return {
-        type: ANSWER_QUESTION,
+        type: ADD_QUESTION,
         question
     }
 }

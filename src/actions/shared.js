@@ -15,9 +15,9 @@ import {addQuestion} from "./questions";
 import {questionTOUser} from "./users";
 import {saveQuestion} from "../utils/api";
 
-export function handleSaveQuestion (one, two, author) {
+export function handleSaveQuestion (optionOneText, optionTwoText, author) {
     return (dispatch) => {
-        return saveQuestion({one, two, author})
+        return saveQuestion({optionOneText, optionTwoText, author})
             .then(
                 (question) => {
                     dispatch(addQuestion(question));
