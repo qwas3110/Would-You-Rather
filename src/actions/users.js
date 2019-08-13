@@ -1,5 +1,18 @@
 export const RECEIVE_USERS = 'RECEIVE_USERS';
 export const ANSWER_USER = 'ANSWER_USER';
+export const QUESTION_USER = 'QUESTION_USER';
+
+
+
+
+export function QuestionTOUser ({ id, author }) {
+    return {
+        type: QUESTION_USER,
+        id,
+        author
+    }
+}
+
 
 
 export function answerUser (authUser, qid, answer) {
