@@ -1,19 +1,16 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 
 
 
-class NoMatch extends Component {
-
-
-    render() {
-        return (
-            <div>
-                NO Match 404
-            </div>
-        );
-    }
-
-}
+const NoMatch = () => {
+    return (
+        <h1 style={{
+            textAlign: 'center'
+        }}>
+            NO Match 404 Error
+        </h1>
+    )
+};
 
 export default NoMatch;

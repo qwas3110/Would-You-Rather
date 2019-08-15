@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {handleAnswerQuestion} from "../actions/shared";
-import { withRouter } from 'react-router-dom';
-
+import { withRouter,Redirect } from 'react-router-dom';
 import {
     Header,
     Form,
@@ -12,6 +11,7 @@ import {
     Image,
     Container
 } from "semantic-ui-react";
+
 
 
 class Question extends Component {
@@ -34,9 +34,7 @@ class Question extends Component {
             handleAnswerQuestion(authUser,id,this.state.value);
             this.props.history.push(`/results/${id}`)
         }
-
-
-    }
+    };
 
 
 
@@ -45,6 +43,9 @@ class Question extends Component {
         const { question, users } = this.props;
         const { value } = this.state;
 
+        if (!question) {
+            return (<Redirect to="/questions/nomatch" />)
+        }
 
 
         return (
