@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {setAuthUser} from "../actions/authUser";
-import { withRouter } from 'react-router-dom';
 import {
     Grid,
     Header,
@@ -32,18 +31,12 @@ class Login extends Component {
         e.preventDefault();
 
         if (this.state.value !== '') {
-
-
-            if (this.state.value !== '') {
-
-                new Promise(resolve => {
-                    this.handleLoading();
-                    setTimeout(() => resolve(), 1000)
-                }).then(() => {
-                    this.props.setAuthUser(this.state.value);
-                    this.props.history.push('/')
-                })
-            }
+            new Promise(resolve => {
+                this.handleLoading();
+                setTimeout(() => resolve(), 1000)
+            }).then(() => {
+                this.props.setAuthUser(this.state.value);
+            })
         }
     };
 
@@ -107,7 +100,6 @@ class Login extends Component {
             </Grid>
         );
     }
-
 }
 
 
@@ -119,11 +111,7 @@ function mapStateToProps ({ authUser, users }) {
     }
 }
 
-
-
-export default withRouter(
-    connect(
-        mapStateToProps,
-        { setAuthUser }
-    )(Login)
-)
+export default connect(
+    mapStateToProps,
+    {setAuthUser}
+)(Login)
